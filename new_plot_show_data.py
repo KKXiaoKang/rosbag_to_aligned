@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # 1. 读取rosbag文件并提取所需数据
-bag = rosbag.Bag('./2024-04-25-17-22-45.bag', 'r')
+bag = rosbag.Bag('./2024-04-26-17-58-06.bag', 'r')
 kuavo_arm_traj_data = []
 robot_arm_q_v_tau_data = []
 
