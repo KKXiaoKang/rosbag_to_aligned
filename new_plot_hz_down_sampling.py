@@ -3,15 +3,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # 1. 读取rosbag文件并提取所需数据
-bag = rosbag.Bag('./2024-04-25-17-22-45.bag', 'r')
+bag = rosbag.Bag('./2024-05-11-10-31-41.bag', 'r')
 kuavo_arm_traj_data = []
 robot_arm_q_v_tau_data = []
 
 kuavo_arm_traj_data_time_stamp=[]
 robot_arm_q_v_tau_data_time_stamp=[]
 
-for topic, msg, t in bag.read_messages(topics=['/kuavo_arm_traj', '/robot_arm_q_v_tau']):
-    if topic == '/kuavo_arm_traj':
+for topic, msg, t in bag.read_messages(topics=['kuavo_arm_traj', '/robot_arm_q_v_tau']):
+    if topic == 'kuavo_arm_traj':
         kuavo_arm_traj_data.append(msg.position)
         kuavo_arm_traj_data_time_stamp.append(msg.header.stamp)
     elif topic == '/robot_arm_q_v_tau':
@@ -21,9 +21,12 @@ for topic, msg, t in bag.read_messages(topics=['/kuavo_arm_traj', '/robot_arm_q_
 
 bag.close()
 
-# 2. 下采样
-downsample_factor = len(kuavo_arm_traj_data) // len(robot_arm_q_v_tau_data)
+print("kuavo_arm_traj_data : ", len(kuavo_arm_traj_data))
+print("robot_arm_q_v_tau_data", len(robot_arm_q_v_tau_data))
 
+# 2. 下采样
+downsample_factor = len(kuavo_arm_traj_data) // len(robot_arm_q_v_tau_data) + 1
+print("downsample_factor : ", downsample_factor)
 # 初始化下采样后的数据列表
 kuavo_arm_traj_data_downsampled = []
 

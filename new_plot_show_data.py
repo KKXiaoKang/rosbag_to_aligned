@@ -21,6 +21,9 @@ for topic, msg, t in bag.read_messages(topics=['/kuavo_arm_traj', '/robot_arm_q_
 
 bag.close()
 
+print("kuavo_arm_traj_data : ", len(kuavo_arm_traj_data))
+print("robot_arm_q_v_tau_data", len(robot_arm_q_v_tau_data))
+
 # 2. 创建3行5列的图表并进行比较
 num_plots = min(len(kuavo_arm_traj_data[0]), len(robot_arm_q_v_tau_data[0]), 15)  # 限制最多只显示15个数据对比
 fig, axs = plt.subplots(3, 5, figsize=(20, 12))
