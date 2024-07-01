@@ -24,6 +24,9 @@ def use_rosbag_to_show(bag_name):
 
     bag.close()
 
+    print("kuavo_arm_traj_data : ", len(kuavo_arm_traj_data))
+    print("robot_arm_q_v_tau_data", len(robot_arm_q_v_tau_data))
+    
     # 安全判断
     if len(kuavo_arm_traj_data) == 0 or len(robot_arm_q_v_tau_data) == 0:
         print("ROS bag file contains empty data for at least one topic.")
@@ -33,9 +36,6 @@ def use_rosbag_to_show(bag_name):
         print("ROS bag file data count is too small (less than 100 data points). Please check again.")
         return
     
-    print("kuavo_arm_traj_data : ", len(kuavo_arm_traj_data))
-    print("robot_arm_q_v_tau_data", len(robot_arm_q_v_tau_data))
-
     # 创建3行5列的图表并进行比较
     num_plots = min(len(kuavo_arm_traj_data[0]), len(robot_arm_q_v_tau_data[0]), 15)  # 限制最多只显示15个数据对比
     fig, axs = plt.subplots(3, 5, figsize=(20, 12))
