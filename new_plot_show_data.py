@@ -24,6 +24,15 @@ def use_rosbag_to_show(bag_name):
 
     bag.close()
 
+    # 安全判断
+    if len(kuavo_arm_traj_data) == 0 or len(robot_arm_q_v_tau_data) == 0:
+        print("ROS bag file contains empty data for at least one topic.")
+        return
+
+    if len(kuavo_arm_traj_data) < 100 or len(robot_arm_q_v_tau_data) < 100:
+        print("ROS bag file data count is too small (less than 100 data points). Please check again.")
+        return
+    
     print("kuavo_arm_traj_data : ", len(kuavo_arm_traj_data))
     print("robot_arm_q_v_tau_data", len(robot_arm_q_v_tau_data))
 
